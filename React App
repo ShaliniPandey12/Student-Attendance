@@ -1,0 +1,102 @@
+import React, { useState, useEffect } from "react";
+
+function Attendance() {
+  const [attendance, setAttendance] = useState([]);
+  const [rollNumber, setRollNumber] = useState("");
+  const [studentName, setStudentName] = useState("");
+  const [checkInTime, setCheckInTime] = useState("");
+  const [checkOutTime, setCheckOutTime] = useState("");
+
+  useEffect(() => {
+    // This effect is run every time attendance is updated
+    const numStudents = attendance.length;
+    console.log(`There are currently ${numStudents} students in the school.`);
+  }, [attendance]);
+
+  function handleRollNumberChange(event) {
+    setRollNumber(event.target.value);
+  }
+
+  function handleStudentNameChange(event) {
+    setStudentName(event.target.value);
+  }
+
+  function handleCheckInTimeChange(event) {
+    setCheckInTime(event.target.value);
+  }
+
+  function handleCheckOutTimeChange(event) {
+    setCheckOutTime(event.target.value);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const newAttendance = {
+      rollNumber,
+      studentName,
+      checkInTime,
+      checkOutTime,
+    };
+    setAttendance([...attendance, newAttendance]);
+    setRollNumber("");
+    setStudentName("");
+    setCheckInTime("");
+    setCheckOutTime("");
+  }
+
+  return (
+    <div>
+      <h1>Student Attendance</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Roll Number:
+          <input
+            type="text"
+            value={rollNumber}
+            onChange={handleRollNumberChange}
+          />
+        </label>
+        <br />
+        <label>
+          Student Name:
+          <input
+            type="text"
+            value={studentName}
+            onChange={handleStudentNameChange}
+          />
+        </label>
+        <br />
+        <label>
+          Check-In Time:
+          <input
+            type="time"
+            value={checkInTime}
+            onChange={handleCheckInTimeChange}
+          />
+        </label>
+        <br />
+        <label>
+          Check-Out Time:
+          <input
+            type="time"
+            value={checkOutTime}
+            onChange={handleCheckOutTimeChange}
+          />
+        </label>
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+      <br />
+      <table>
+        <thead>
+          <tr>
+            <th>Roll Number</th>
+            <th>Student Name</th>
+            <th>Check-In Time</th>
+            <th>Check-Out Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {attendance.map((student) => (
+            <tr key={student.rollNumber}>
+              <td>{student.roll
